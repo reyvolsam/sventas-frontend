@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h4 class="modal-title" id = "modal-basic-title">Usuarios</h4>
+  </div><!--/modal-header-->
+  <form [formGroup] = "userForm" (ngSubmit) = "onSubmit()">
+    <div class="modal-body">
+  
+      <div class = "form-group row">
+          <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+          <div class = "col-sm-9">
+              <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': user_submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "191" placeholder = "Nombre" />
+              <div *ngIf="user_submitted && c.name.errors" class = "invalid-feedback">
+                <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+              </div><!--/invalid-feedback-->
+          </div><!--/col-sm-9-->
+      </div><!--/form-group-->
+  
+      <div class = "form-group row">
+        <label class = "col-sm-3 col-form-label t_right">Correo Electrónico</label>
+        <div class = "col-sm-9">
+            <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': user_submitted && c.email.errors }" id = "email" name = "email" formControlName = "email"  maxlength = "191" placeholder = "Correo Electrónico" />
+            <div *ngIf="user_submitted && c.email.errors" class = "invalid-feedback">
+              <div *ngIf="c.email.errors.required">Este campo es requerido.</div>
+              <div *ngIf="c.email.errors.email">Introduzca un correo electrónico valido.</div>
+            </div><!--/invalid-feedback-->
+        </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+  
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Perfil</label>
+      <div class = "col-sm-9">
+        <select class = "form-control" [ngClass]="{ 'is-invalid': user_submitted && c.group_id.errors }" id = "group_id" name = "group_id" formControlName = "group_id">
+            <option [ngValue]="group.id" *ngFor="let group of groups_list">{{group.name}}</option>
+        </select>
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+  
+    <div class = "form-group row">
+        <label class = "col-sm-3 col-form-label t_right">Campus<i *ngIf = "campus_loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></label>
+        <div class = "col-sm-9">
+          <select class = "form-control" [ngClass]="{ 'is-invalid': user_submitted && c.campus_id.errors }" id = "campus_id" name = "campus_id" formControlName = "campus_id">
+              <option [ngValue]="campus.id" *ngFor="let campus of campus_list">{{campus.name}}</option>
+          </select>
+        </div><!--/col-sm-9-->
+      </div><!--/form-group-->
+  
+    </div><!--/modal-body-->
+    <div class = "modal-footer">
+      <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+      <button *ngIf="loader == false" type = "submit" class = "btn btn-outline-success">Guardar</button>
+      <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+    </div><!--/modal-footer-->
+  </form>
+  

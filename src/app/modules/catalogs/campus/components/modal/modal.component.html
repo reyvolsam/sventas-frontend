@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h4 class="modal-title" id = "modal-basic-title">Campus</h4>
+  </div><!--/modal-header-->
+  <form [formGroup] = "campusForm" (ngSubmit) = "onSubmit()">
+    <div class="modal-body">
+  
+      <div class = "form-group row">
+          <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+          <div class = "col-sm-9">
+              <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': campus_submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "100" placeholder = "Nombre" />
+              <div *ngIf="campus_submitted && c.name.errors" class = "invalid-feedback">
+                <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+              </div><!--/invalid-feedback-->
+          </div><!--/col-sm-9-->
+      </div><!--/form-group-->
+      <div class = "form-group row">
+        <label class = "col-sm-3 col-form-label t_right">Descripción</label>
+        <div class = "col-sm-9">
+            <input type = "text" class = "form-control" id = "description" name = "description" formControlName = "description" maxlength = "255" placeholder = "Descripción" />
+        </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+    </div><!--/modal-body-->
+    <div class = "modal-footer">
+      <button [disabled]="campus_loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+      <button *ngIf="campus_loader == false" type = "submit" class = "btn btn-outline-success">Guardar</button>
+      <i *ngIf="campus_loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+    </div><!--/modal-footer-->
+  </form>
+  
