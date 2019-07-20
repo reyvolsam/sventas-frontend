@@ -22,6 +22,11 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'catalogs/grade',
+        loadChildren: './modules/catalogs/grade/grade.module#GradeModule',
+        canActivate: [AuthGuard]
+    },
+    {
         path: '**', redirectTo: ''
     }
 ]

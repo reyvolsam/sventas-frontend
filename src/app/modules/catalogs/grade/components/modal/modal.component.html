@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title" id = "modal-basic-title">Grados</h4>
+</div><!--/modal-header-->
+<form [formGroup] = "gradeForm" (ngSubmit) = "onSubmit()">
+  <div class="modal-body">
+
+    <div class = "form-group row">
+        <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+        <div class = "col-sm-9">
+            <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': grade_submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "10" placeholder = "Nombre" />
+            <div *ngIf="grade_submitted && c.name.errors" class = "invalid-feedback">
+              <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+            </div><!--/invalid-feedback-->
+        </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Descripción</label>
+      <div class = "col-sm-9">
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': grade_submitted && c.description.errors }" id = "description" name = "description" formControlName = "description"  maxlength = "255" placeholder = "Descripción" />
+          <div *ngIf="grade_submitted && c.description.errors" class = "invalid-feedback">
+            <div *ngIf="c.description.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+  </div><!--/form-group-->
+
+  <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Campus<i *ngIf = "campus_loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></label>
+      <div class = "col-sm-9">
+        <select class = "form-control" [ngClass]="{ 'is-invalid': user_submitted && c.campus_id.errors }" id = "campus_id" name = "campus_id" formControlName = "campus_id">
+            <option [ngValue]="campus.id" *ngFor="let campus of campus_list">{{campus.name}}</option>
+        </select>
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+
+  </div><!--/modal-body-->
+  <div class = "modal-footer">
+    <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+    <button *ngIf="loader == false" type = "submit" class = "btn btn-outline-success">Guardar</button>
+    <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+  </div><!--/modal-footer-->
+</form>

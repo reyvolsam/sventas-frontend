@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Campus } from 'src/app/models/Campus';
 import { CampusService } from 'src/app/services/campus/campus.service';
-import { UserService } from 'src/app/services/user/user.service';
-import { NgbModalConfig, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import Swal from 'sweetalert2'
+import { GradeService } from 'src/app/services/grade/grade.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal',
@@ -15,47 +15,36 @@ export class ModalComponent implements OnInit {
 
   @Input() formData;
 
-  userForm: FormGroup
-  user_submitted:Boolean = false
+  gradeForm: FormGroup
+  grade_submitted:Boolean = false
   loader:Boolean = false
   campus_loader:Boolean = false
 
-  groups_list = [
-    { id: 1, name: 'root' },
-    { id: 2, name: 'Administrador' },
-    { id: 3, name: 'Contabilidad' },
-    { id: 4, name: 'Vendedor' }
-  ]
-
   campus_list:Campus[] = []
   campus:Campus
-  
+
   constructor(
     private campusService: CampusService,
-    private userService: UserService,
+    private userService: GradeService,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal
-  ) { 
-    this.userForm = this.formBuilder.group({
+  ) {
+    this.gradeForm = this.formBuilder.group({
       id: [],
       name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      group_id: [1, [Validators.required]],
+      description: ['', [Validators.required]],
       campus_id: [null, [Validators.required]],
       campus: [],
-      group: [],
       loader: []
     })
-
     this.getCampusList()
-  }
+   }//
 
   ngOnInit() {
-    this.formData.group_id = 1
-    this.userForm.setValue(this.formData)
-  }
+    this.gradeForm.setValue(this.formData)
+  }//
 
-  get c(){ return this.userForm.controls }
+  get c(){ return this.gradeForm.controls }
 
   getCampusList()
   {
@@ -76,14 +65,14 @@ export class ModalComponent implements OnInit {
 
   onSubmit()
   {
-    this.user_submitted = true
-    if (this.userForm.invalid) {
+    this.grade_submitted = true
+    if (this.gradeForm.invalid) {
       return;
     } else {
       this.loader = true
-      if(this.userForm.value.id === null){
+      if(this.gradeForm.value.id === null){
         this.userService
-        .saveUser(this.userForm.value)
+        .saveGrade(this.gradeForm.value)
         .subscribe(
           (res) => {
             console.log(res)
@@ -97,7 +86,7 @@ export class ModalComponent implements OnInit {
           })
       } else {
         this.userService
-        .updateUser(this.userForm.value)
+        .updateGrade(this.gradeForm.value)
         .subscribe(
           (res) => {
             console.log(res)
