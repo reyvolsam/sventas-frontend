@@ -1,60 +1,60 @@
 import { Component, OnInit } from '@angular/core'
-import { Grade } from 'src/app/models/Grade'
-import { GradeService } from 'src/app/services/grade/grade.service'
+import { SchoolGroup } from 'src/app/models/SchoolGroup'
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap'
+import { SchoolGroupService } from 'src/app/services/school_group/school-group.service'
+import { ModalComponent } from '../modal/modal.component'
 import Swal from 'sweetalert2'
-import { ModalComponent } from '../../../grade/components/modal/modal.component'
 
 @Component({
-  selector: 'app-grade',
-  templateUrl: './grade.component.html',
-  styleUrls: ['./grade.component.css']
+  selector: 'app-school-group',
+  templateUrl: './school-group.component.html',
+  styleUrls: ['./school-group.component.css']
 })
-export class GradeComponent implements OnInit {
+export class SchoolGroupComponent implements OnInit {
 
-  grades_list:Grade[] = []
-  grade_loader:Boolean = false
+  school_groups_list:SchoolGroup[] = []
+  school_group_loader:Boolean = false
 
-  grade:Grade = {
+  school_group:SchoolGroup = {
     id: null,
     name: '',
     description: '',
-    campus_id:null,
-    campus: '',
+    grade_id:null,
+    grade: '',
     loader: false
   }
 
   constructor(
-    private userService:GradeService,
+    private schoolGroupService:SchoolGroupService,
     private modalService: NgbModal,
     modal_config: NgbModalConfig
-  ) { 
+  ) {
     modal_config.backdrop = 'static'
     modal_config.keyboard = false
-  }
+   }
 
   ngOnInit() {
-    this.getGradesList()
+    this.getSchoolGroupsList()
   }
 
-  getGradesList()
+  getSchoolGroupsList()
   {
-    this.grades_list = []
-    this.grade_loader = true
+    this.school_groups_list = []
+    this.school_group_loader = true
 
-    this.userService.getGrades()
+    this.schoolGroupService.getSchoolGroups()
     .subscribe(
       res => {
         console.log(res)
-        this.grade_loader = false
-        this.grades_list = res.data
-        if(this.grades_list.length == 0){
+        this.school_group_loader = false
+        this.school_groups_list = res.data
+        if(this.school_groups_list.length == 0){
           Swal.fire('¡Atención!', res.message, 'warning')
         }
       },
       error => {
         console.log(error.error.message)
-        this.grade_loader = false
+        this.school_group_loader = false
         Swal.fire('¡Error!', error.error.message, 'warning')
       })
   }//gerUsersList()}
@@ -62,15 +62,15 @@ export class GradeComponent implements OnInit {
   open()
   {
     const modalRef = this.modalService.open(ModalComponent);
-    modalRef.componentInstance.formData = this.grade
-    modalRef.result.then(result => result ? this.getGradesList() : false)
+    modalRef.componentInstance.formData = this.school_group
+    modalRef.result.then(result => result ? this.getSchoolGroupsList() : false)
   }//open()
   
   edit(i)
   {
     const modalRef = this.modalService.open(ModalComponent)
-    modalRef.componentInstance.formData = this.grades_list[i]
-    modalRef.result.then(result => result ? this.getGradesList() : false)
+    modalRef.componentInstance.formData = this.school_groups_list[i]
+    modalRef.result.then(result => result ? this.getSchoolGroupsList() : false)
   }//edit()
 
   delete(i)
@@ -84,18 +84,18 @@ export class GradeComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if(result.value){
-        this.grades_list[i].loader = true
-        this.userService.deleteGrade(this.grades_list[i].id)
+        this.school_groups_list[i].loader = true
+        this.schoolGroupService.deleteSchoolGroup(this.school_groups_list[i].id)
         .subscribe(
           res => {
             console.log(res)
-            this.grades_list[i].loader = false
+            this.school_groups_list[i].loader = false
             Swal.fire('¡Éxito!', res.message, 'success')
-            this.getGradesList()
+            this.getSchoolGroupsList()
           },
           error => {
             console.log(error.error.message)
-            this.grades_list[i].loader = false
+            this.school_groups_list[i].loader = false
             Swal.fire('¡Error!', error.error.message, 'warning')
           })
       } else {

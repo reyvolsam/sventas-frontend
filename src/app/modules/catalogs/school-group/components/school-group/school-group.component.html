@@ -4,10 +4,10 @@
 
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Grados </h4> <br>
+        <h4 class="card-title">Grupos </h4> <br>
 
         <div class="row justify-content-end">
-          <button class="btn btn-lg btn-outline-primary btn-sm" (click)="open()"><i class = "fa fa-plus"></i> Crear Grado</button>
+          <button class="btn btn-lg btn-outline-primary btn-sm" (click)="open()"><i class = "fa fa-plus"></i> Crear Grupo</button>
         </div><!--/row-->
         <div class = "clearfix"></div><!--/clearfix-->
         <br />
@@ -16,17 +16,17 @@
           <thead>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Campus</th>
+            <th>Grado</th>
             <th>Acciones</th>
           </thead>
-          <tbody *ngFor="let grade of grades_list; let i = index">
+          <tbody *ngFor="let school_group of school_groups_list; let i = index">
             <tr>
-              <td>{{ grade.name }}</td>
-              <td>{{ grade.description }}</td>
-              <td>{{ grade.campus.name }}</td>
+              <td>{{ school_group.name }}</td>
+              <td>{{ school_group.description }}</td>
+              <td>{{ school_group.grade.name }}</td>
               <td>
                 <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
-                <button [disabled] = "grade.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="grade.loader == false" class = "fa fa-trash"></i><i *ngIf="grade.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
+                <button [disabled] = "school_group.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="school_group.loader == false" class = "fa fa-trash"></i><i *ngIf="school_group.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
               </td>
             </tr>
           </tbody>

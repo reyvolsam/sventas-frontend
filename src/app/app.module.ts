@@ -7,10 +7,12 @@ import { JwtInterceptor } from './helpers/jwt-interceptor'
 import { ErrorInterceptor } from './helpers/error-interceptor'
 
 import { AppComponent } from './app.component';
+import { SchoolGroupComponent } from './modules/school-group/components/school-group/school-group.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SchoolGroupComponent
   ],
   imports: [
     BrowserModule,

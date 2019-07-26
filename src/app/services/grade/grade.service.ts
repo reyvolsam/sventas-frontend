@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Grade } from 'src/app/models/Grade'
 import { environment } from '../../../environments/environment'
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 @Injectable({

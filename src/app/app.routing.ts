@@ -27,6 +27,16 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'catalogs/group',
+        loadChildren: './modules/catalogs/school-group/school-group.module#SchoolGroupModule',
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'student',
+        loadChildren: './modules/student/student.module#StudentModule',
+        canActivate: [AuthGuard]
+    },
+    {
         path: '**', redirectTo: ''
     }
 ]
