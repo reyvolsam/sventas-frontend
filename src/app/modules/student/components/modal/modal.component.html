@@ -1,3 +1,51 @@
-<p>
-  modal works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title" id = "modal-basic-title">Estudiantes</h4>
+</div><!--/modal-header-->
+<form [formGroup] = "studentForm" (ngSubmit) = "onSubmit()">
+  <div class="modal-body">
+
+    <div class = "form-group row">
+        <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+        <div class = "col-sm-9">
+            <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': student_submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "255" placeholder = "Nombre" />
+            <div *ngIf="student_submitted && c.name.errors" class = "invalid-feedback">
+              <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+            </div><!--/invalid-feedback-->
+        </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Matricula</label>
+      <div class = "col-sm-9">
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': student_submitted && c.enrollment.errors }" id = "enrollment" name = "enrollment" formControlName = "enrollment"  maxlength = "255" placeholder = "Matricula" />
+          <div *ngIf="student_submitted && c.enrollment.errors" class = "invalid-feedback">
+            <div *ngIf="c.enrollment.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+  </div><!--/form-group-->
+  
+  <div class = "form-group row">
+    <label class = "col-sm-3 col-form-label t_right">Grado<i *ngIf = "grade_loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></label>
+    <div class = "col-sm-9">
+      <select class = "form-control" [ngClass]="{ 'is-invalid': student_submitted && c.grade_id.errors }" (change) = "onGradeChange($event)" id = "grade_id" name = "grade_id" formControlName = "grade_id">
+          <option [ngValue]="grade.id" *ngFor="let grade of grades_list">{{grade.name}}</option>
+      </select>
+    </div><!--/col-sm-9-->
+  </div><!--/form-group-->
+
+  <div class = "form-group row">
+    <label class = "col-sm-3 col-form-label t_right">Grupo<i *ngIf = "school_group_loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></label>
+    <div class = "col-sm-9">
+      <select class = "form-control" [ngClass]="{ 'is-invalid': student_submitted && c.school_group_id.errors }" id = "school_group_id" name = "school_group_id" formControlName = "school_group_id">
+          <option [ngValue]="school_group.id" *ngFor="let school_group of school_groups_list">{{school_group.name}}</option>
+      </select>
+    </div><!--/col-sm-9-->
+  </div><!--/form-group-->
+
+  </div><!--/modal-body-->
+  <div class = "modal-footer">
+    <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+    <button *ngIf="loader == false" type = "submit" class = "btn btn-outline-success">Guardar</button>
+    <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+  </div><!--/modal-footer-->
+</form>

@@ -15,6 +15,7 @@ export class StudentComponent implements OnInit {
     enrollment: '',
     name: '',
     grade_id: null,
+    school_group_id: null,
     loader: false
   }
 
