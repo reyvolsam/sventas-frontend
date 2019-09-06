@@ -22,7 +22,7 @@ button {
 }
 body {
   font-family: 'Maven Pro', sans-serif;
-  background: #da4469 url('assets/images/bg_blur.jpg') no-repeat center center fixed;
+  /*background: #da4469 url('assets/images/bg_blur.jpg') no-repeat center center fixed;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
